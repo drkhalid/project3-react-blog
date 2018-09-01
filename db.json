@@ -1,32 +1,79 @@
 {
   "posts": [
     {
-      "id": 1,
-      "userId": 1,
-      "title": "sunt aut ffdsfsddfslat provident occaecati excepturi optio reprehenderit",
-      "body": "quia etdandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrfdsfdsfdst rem eveniet architecto",
-      "categoryId": 1
+      "title": "The Shocking Revelation of Code Developer.",
+      "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum dolorem tempora accusamus non aliquid excepturi quas voluptatum! Veritatis earum minus animi dolore aliquam molestiae itaque doloremque temporibus, eius esse at.",
+      "userId": "1",
+      "categoryId": "1",
+      "id": 1
+    },
+    {
+      "title": "15 Useful Tips From Experts In Code Developer.",
+      "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum dolorem tempora accusamus non aliquid excepturi quas voluptatum! Veritatis earum minus animi dolore aliquam molestiae itaque doloremque temporibus, eius esse at.",
+      "userId": "1",
+      "categoryId": "1",
+      "id": 2
+    },
+    {
+      "title": "Code Developer Will Make You Tons Of Cash. Here's How!",
+      "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum dolorem tempora accusamus non aliquid excepturi quas voluptatum! Veritatis earum minus animi dolore aliquam molestiae itaque doloremque temporibus, eius esse at.",
+      "userId": "2",
+      "categoryId": "2",
+      "id": 3
     }
   ],
   "comments": [
     {
-      "id": 1,
-      "body": "quia etdandae molestiae ut ut quas totam\nnostrfdsfdsfdst rem eveniet architecto",
-      "postId": 1,
-      "userId": 1
+      "userId": "1",
+      "body": "khalid comment",
+      "postId": "1",
+      "id": 1
+    },
+    {
+      "userId": "2",
+      "body": "jamal comment",
+      "postId": "1",
+      "id": 2
+    },
+    {
+      "userId": "1",
+      "body": "khalid comment",
+      "postId": "2",
+      "id": 3
+    },
+    {
+      "userId": "2",
+      "body": "jamal comment",
+      "postId": "2",
+      "id": 4
+    },
+    {
+      "userId": "1",
+      "body": "Khalid third",
+      "postId": "2",
+      "id": 5
     }
   ],
   "users": [
     {
-      "id": 1,
-      "name": "typicode",
-      "email": "user@example.com"
+      "name": "khalid",
+      "email": "khalid@gmail.com",
+      "id": 1
+    },
+    {
+      "name": "jamal",
+      "email": "jamal@gmail.com",
+      "id": 2
     }
   ],
   "categories": [
     {
       "id": 1,
-      "name": "Uncatagorized"
+      "name": "cat 1"
+    },
+    {
+      "name": "cat 2",
+      "id": 2
     }
   ]
 }
