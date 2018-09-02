@@ -152,7 +152,7 @@ class Comments extends Component {
             </Button>
           )}{" "}
         </div>{" "}
-        <Table striped>
+        <Table className="table-responsive-sm">
           <thead>
             <tr>
               <th>Id</th>
