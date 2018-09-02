@@ -76,8 +76,8 @@ class Categories extends Component {
   render() {
     return (
       <div className="row">
-        <div className="d-flex UserForm">
-          <InputGroup className="nameInput my-4 mr-4 ml-0">
+        <div className="d-flex my-wrap-flex UserForm col-12 pl-0">
+          <InputGroup className="nameInput col-lg-6 col-10 my-4 mr-4 ml-0 pl-0">
             <InputGroupAddon addonType="prepend">Category</InputGroupAddon>
             <Input
               value={this.state.newCat.name}

@@ -8,6 +8,7 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
+  Tooltip,
   Modal,
   ModalBody,
   ModalFooter,
@@ -21,6 +22,49 @@ import {
   Input
 } from "reactstrap";
 
+class Pop extends Component {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      tooltipOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <p>
+          {" "}
+          <span
+            style={{ textDecoration: "underline", color: "blue" }}
+            href="#"
+            id="TooltipExample"
+          >
+            Writter
+          </span>
+          .
+        </p>
+        <Tooltip
+          placement="right"
+          isOpen={this.state.tooltipOpen}
+          target="TooltipExample"
+          toggle={this.toggle}
+        >
+          Hello world!
+        </Tooltip>
+      </div>
+    );
+  }
+}
+
 class MainPage extends Component {
   constructor() {
     super();
@@ -28,14 +72,16 @@ class MainPage extends Component {
     this.endpoint = "http://localhost:3000/posts/";
   }
   state = {
+    realPosts: [],
     posts: [],
     newPost: { title: "", body: "", userId: "", categoryId: "" },
     isEditing: false,
     comments: [],
     users: [],
     categories: [],
+    savedPosts: [],
 
-    oneUser: ""
+    writterUser: []
   };
 
   componentDidMount() {
@@ -43,7 +89,12 @@ class MainPage extends Component {
     axios
       .get(this.endpoint)
       .then(res => {
-        this.setState({ posts: res.data });
+        this.setState({ realPosts: res.data });
+      })
+      .then(() => {
+        this.setState({
+          posts: [...this.state.realPosts]
+        });
       })
       .then(
         axios.get("http://localhost:3000/users/").then(res => {
@@ -117,11 +168,36 @@ class MainPage extends Component {
     });
   };
 
+  postsByCategory = id => {
+    this.setState({
+      savedPosts: this.state.posts.slice(),
+      posts: this.state.realPosts.filter(x => x.categoryId == id)
+    });
+    console.log(`this is saved ${this.state.savedPosts}`);
+    console.log(this.state.posts);
+  };
+
+  getAllCata = () => {
+    this.setState({
+      posts: [...this.state.realPosts]
+    });
+  };
+
+  getWritter = nn => {
+    console.log(this.state.users);
+
+    this.state.users.map(d => {
+      d.id == nn ? this.setState({ writterUser: d.name }) : "";
+    });
+
+    console.log(this.state.writterUser);
+  };
+
   render() {
     return (
-      <div className="row d-flex fluid">
-        <div className="row-fluid d-flex UserForm">
-          <InputGroup className="nameInput my-4 mr-4 ml-0">
+      <div className="row">
+        <div className="d-flex UserForm col-12 my-wrap-flex">
+          <InputGroup className="nameInput pl-0 my-4 mr-4 ml-0 col-lg-3 col-10 ">
             <InputGroupAddon addonType="prepend">User ID</InputGroupAddon>
             <Input
               value={this.state.newPost.userId}
@@ -133,7 +209,7 @@ class MainPage extends Component {
               placeholder="User Id"
             />
           </InputGroup>
-          <InputGroup className="emailInput my-4 mr-4 ml-0">
+          <InputGroup className="emailInput pl-0 my-4 mr-4 ml-0 col-lg-4 col-10">
             <InputGroupAddon addonType="prepend">Category ID</InputGroupAddon>
             <Input
               value={this.state.newPost.categoryId}
@@ -145,7 +221,7 @@ class MainPage extends Component {
               placeholder="Category ID"
             />
           </InputGroup>
-          <InputGroup className="nameInput my-4 mr-4 ml-0">
+          <InputGroup className="nameInput pl-0 my-4 mr-4 ml-0 col-lg-8 col-10">
             <InputGroupAddon addonType="prepend">Title</InputGroupAddon>
             <Input
               value={this.state.newPost.title}
@@ -157,7 +233,7 @@ class MainPage extends Component {
               placeholder="Title"
             />
           </InputGroup>
-          <InputGroup className="emailInput my-4 mr-4 ml-0">
+          <InputGroup className="emailInput pl-0 my-4 mr-4 ml-0 col-lg-8 col-10">
             <InputGroupAddon addonType="prepend">Body</InputGroupAddon>
             <Input
               value={this.state.newPost.body}
@@ -167,13 +243,16 @@ class MainPage extends Component {
                 });
               }}
               placeholder="Body"
+              type="textarea"
+              name="text"
+              id="exampleText"
             />
           </InputGroup>
           {this.state.isEditing ? (
-            <div>
+            <div className="ml-0">
               <Button
                 onClick={this.savePost}
-                className="SubmitButton my-4 mr-4 ml-0"
+                className="SubmitButton pl-0 my-4 mr-4 ml-0"
                 color="warning"
               >
                 Update
@@ -197,15 +276,22 @@ class MainPage extends Component {
           )}{" "}
         </div>{" "}
         <div className="d-flex">
-          <div className="col-lg-9 col-12">
+          <div className="col-lg-9 col-12 postBoard">
             {this.state.posts.map((x, i) => (
               <Card className="my-2 col-12" key={i}>
                 <CardBody>
                   <CardTitle>{x.title}</CardTitle>
-                  <CardSubtitle>Written by: </CardSubtitle>
+                  <CardSubtitle
+                    onMouseMove={() => {
+                      this.getWritter(x.userId);
+                      console.log(x.userId);
+                    }}
+                  >
+                    Written by: {this.state.writterUser}
+                  </CardSubtitle>
                   <CardText>{x.body}</CardText>
                   <Button
-                    onClick={() => this.getComment(x.id)}
+                    onClick={() => this.getComment(x.userId)}
                     className="mr-5 btn-outline-info"
                   >
                     Comments
@@ -242,16 +328,26 @@ class MainPage extends Component {
               </Card>
             ))}
           </div>
-          <Card className="col-12 col-lg-3 ">
-            <div>
-              <h3>Categories</h3>
-              <button className="btn btn-flat waves-effect btn-outline-info col-12 mt-3 mb-3">
+          <Card className="col-12 col-lg-3 mt-2 CatBoard">
+            <div className="text-center">
+              <h3 className="col-12 mt-3 mb-3">Categories</h3>
+              <button
+                className="btn btn-flat waves-effect btn-outline-info col-12 mt-3 mb-3"
+                onClick={() => {
+                  this.getAllCata();
+                }}
+              >
                 All categories
               </button>
             </div>
             {this.state.categories.map((x, i) => (
-              <div>
-                <button className="btn btn-flat waves-effect btn-outline-info col-12 mt-3 mb-3">
+              <div key={i}>
+                <button
+                  onClick={() => {
+                    this.postsByCategory(x.id);
+                  }}
+                  className="btn btn-flat waves-effect btn-outline-info col-12 mt-3 mb-3"
+                >
                   {x.name}
                 </button>
               </div>

@@ -76,8 +76,8 @@ class Comments extends Component {
   render() {
     return (
       <div className="row">
-        <div className="d-flex UserForm">
-          <InputGroup className="nameInput my-4 mr-4 ml-0">
+        <div className="d-flex my-wrap-flex col-12 pl-0 UserForm">
+          <InputGroup className="nameInput pl-0 my-4 mr-4 ml-0 col-10 col-lg-4">
             <InputGroupAddon addonType="prepend">User ID</InputGroupAddon>
             <Input
               value={this.state.newComment.userId}
@@ -92,7 +92,7 @@ class Comments extends Component {
               placeholder="User ID"
             />
           </InputGroup>
-          <InputGroup className="emailInput my-4 mr-4 ml-0">
+          <InputGroup className="emailInput pl-0 my-4 mr-4 ml-0 col-10 col-lg-4">
             <InputGroupAddon addonType="prepend">Post ID</InputGroupAddon>
             <Input
               value={this.state.newComment.postId}
@@ -107,7 +107,7 @@ class Comments extends Component {
               placeholder="Post ID"
             />
           </InputGroup>
-          <InputGroup className="emailInput my-4 mr-4 ml-0">
+          <InputGroup className="textInput pl-0 my-4 mr-4 ml-0 col-lg-8 col-10">
             <InputGroupAddon addonType="prepend">Body</InputGroupAddon>
             <Input
               value={this.state.newComment.body}
@@ -120,6 +120,9 @@ class Comments extends Component {
                 });
               }}
               placeholder="Body"
+              type="textarea"
+              name="text"
+              id="exampleText"
             />
           </InputGroup>
           {this.state.isEditing ? (

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from "reactstrap";
+import { InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
 import { Table } from "reactstrap";
-import { Collapse, Button, CardBody, Card } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
 class Posts extends Component {
   constructor() {
@@ -76,8 +76,8 @@ class Posts extends Component {
   render() {
     return (
       <div className="row">
-        <div className="d-flex UserForm">
-          <InputGroup className="nameInput my-4 mr-4 ml-0">
+        <div className="d-flex my-wrap-flex UserForm">
+          <InputGroup className="nameInput pl-0 my-4 mr-4 ml-0 col-lg-3 col-10 ">
             <InputGroupAddon addonType="prepend">User ID</InputGroupAddon>
             <Input
               value={this.state.newPost.userId}
@@ -89,7 +89,7 @@ class Posts extends Component {
               placeholder="User Id"
             />
           </InputGroup>
-          <InputGroup className="emailInput my-4 mr-4 ml-0">
+          <InputGroup className="emailInput pl-0 my-4 mr-4 ml-0 col-lg-4 col-10">
             <InputGroupAddon addonType="prepend">Category ID</InputGroupAddon>
             <Input
               value={this.state.newPost.categoryId}
@@ -101,7 +101,7 @@ class Posts extends Component {
               placeholder="Category ID"
             />
           </InputGroup>
-          <InputGroup className="nameInput my-4 mr-4 ml-0">
+          <InputGroup className="textInput pl-0 my-4 mr-4 ml-0 col-lg-8 col-10">
             <InputGroupAddon addonType="prepend">Title</InputGroupAddon>
             <Input
               value={this.state.newPost.title}
@@ -113,7 +113,7 @@ class Posts extends Component {
               placeholder="Title"
             />
           </InputGroup>
-          <InputGroup className="emailInput my-4 mr-4 ml-0">
+          <InputGroup className="textInput pl-0 my-4 mr-4 ml-0 col-lg-8 col-10">
             <InputGroupAddon addonType="prepend">Body</InputGroupAddon>
             <Input
               value={this.state.newPost.body}
@@ -123,6 +123,9 @@ class Posts extends Component {
                 });
               }}
               placeholder="Body"
+              type="textarea"
+              name="text"
+              id="exampleText"
             />
           </InputGroup>
           {this.state.isEditing ? (
@@ -173,7 +176,7 @@ class Posts extends Component {
                 <td>{x.body}</td>
                 <td>
                   <button
-                    className="btn btn-warning mr-3"
+                    className="btn btn-warning mr-3 mb-1"
                     onClick={() => this.edit(x)}
                   >
                     Edit

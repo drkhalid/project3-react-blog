@@ -76,8 +76,8 @@ class Users extends Component {
   render() {
     return (
       <div className="row">
-        <div className="d-flex UserForm">
-          <InputGroup className="nameInput my-4 mr-4 ml-0">
+        <div className="d-flex UserForm my-wrap-flex col-12 pl-0">
+          <InputGroup className="nameInput my-4 mr-4 ml-0 pl-0 col-lg-4 col-10">
             <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
             <Input
               value={this.state.newUser.name}
@@ -89,7 +89,7 @@ class Users extends Component {
               placeholder="Username"
             />
           </InputGroup>
-          <InputGroup className="emailInput my-4 mr-4 ml-0">
+          <InputGroup className="emailInput my-4 mr-4 ml-0 pl-0 col-lg-4 col-10">
             <InputGroupAddon addonType="prepend">Email</InputGroupAddon>
             <Input
               value={this.state.newUser.email}
